@@ -8,6 +8,6 @@ jobs:
   redeploy_everything:
       runs-on: ubuntu-latest
       steps:
-      uses:action/checkout@v3
+      uses: action/checkout@v3
       
 
