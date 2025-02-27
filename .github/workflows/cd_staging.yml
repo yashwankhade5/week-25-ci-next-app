@@ -1,5 +1,13 @@
 name: Deploy to staging
 on:
   push:
-    branches: [main]
+    branches: 
+        -"main"
+
+jobs:
+  redeploy_everything:
+      runs-on: ubuntu-latest
+      steps:
+      uses:action/checkout@v3
+      
 
