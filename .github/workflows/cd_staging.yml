@@ -12,4 +12,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        script: whoami
+        script: |
+          cd week-25-ci-next-app && git pull
+          pnpm install 
+          pnpm run build 
+          pm2 restart fe-server
+          pm2 restart http-server
+          pm2 restart ws-server
