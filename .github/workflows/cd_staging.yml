@@ -1,3 +1,4 @@
+
 name: Deploy to staging
 on:
   push:
@@ -14,17 +15,6 @@ jobs:
           ls /home/runner/.ssh
           touch /home/runner/.ssh/known_hosts
           echo "${{ secrets.KNOWN_HOSTS }}" &> /home/runner/.ssh/known_hosts
-          chmod 600 ~/ssh_key
-          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@35.173.135.255 -t "
-            cd week-25-ci-next-app/ && 
-            git pull origin main && 
-            source ~/.nvm/nvm.sh && 
-            nvm install 23.8.0 || true && 
-            nvm use 23.8.0 && 
-            npm install -g pnpm && 
-            pnpm install && 
-            pnpm run build && 
-            pm2 restart fe-sever && 
-            pm2 restart http-sever && 
-            pm2 restart ws-sever
-          "
+          chmod 700 /home/runner/ssh_key
+          ssh -i ~/ssh_key root@35.173.135.255 -t "cd week-25-ci-next-app/ && git pull origin main && export PATH=/root/.nvm/versions/node/v22.13.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin && npm install -g pnpm && pnpm install && pnpm run build && pm2 restart fe-sever && pm2 restart http-sever && pm2 restart ws-sever"
+
